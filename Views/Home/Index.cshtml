@@ -1,0 +1,76 @@
+﻿@Styles.Render("~/Content/sidebarBootstrap.css")
+@Styles.Render("~/Content/hamburger.css")
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .home{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+        /*display: flex;*/        
+    }
+    .content {
+        width: 100%;
+        position: absolute;
+        color: white;
+        top: 45%;
+        transform: translateY(-50%);
+        text-align: center;
+    }
+
+    h1 {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 150px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+    }
+    h2 {
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 32px;
+        margin: 0 0 72px;
+        text-align: center;
+    }
+    .background-clip {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: -1;   
+    }
+</style>
+
+<body>            
+    <div id="page-content-wrapper" class="home">
+        <div class="hamburger hamburger--arrowalt">
+            <a href="#" class="btn" id="menu-toggle"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
+        </div>
+        <video autoplay loop muted plays-inline class="background-clip">
+            <source src="~/Images/lollipopvideo.mp4" type="video/mp4" />
+        </video>
+        <div class="content text-white">
+            <h1 class="fw-light"><span style="color: darksalmon;"> Sweet</span> of you to stop by!</h1>
+            <h2 class="lead fw-normal text-body-secondary">Have an account? Login! If not, it's free to Sign Up!</h2>
+            <button class="btn btn-danger">Get Started</button>
+        </div>
+    </div>      
+</body>
+<script>
+    $(document).ready(function () {
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("menuDisplayed");
+        });
+    });
+</script>

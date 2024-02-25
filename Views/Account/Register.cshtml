@@ -1,0 +1,94 @@
+﻿@model UserPortal.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<style>
+    body {
+        background-color: #e7eaf6;
+    }
+
+    .btn-register {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        transition: ease-in-out 0.3s;
+        color: #fff;
+        font-weight: normal;
+        background: #a2a8d3;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 05px 30px;
+    }
+
+        .btn-register:hover {
+            background: #38598b;
+        }
+
+    .btn-color {
+        background-color: #0e1c36;
+        color: #fff;
+    }
+
+    .profile-image-pic {
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+    }
+
+    .cardbody-color {
+        background-color: #38598b;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .century {
+        font-family: 'Century Gothic';
+    }
+</style>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center mt-5" style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bold;">Create an Account</h2>
+                <div class="text-center mb-5 century">Create an account to view records and information. Make sure both passwords match.</div>
+                <div class="card my-5 century">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h6 class=" py-4 text-center" style="font-family: 'Century Gothic';font-weight: normal;">Fill out your information below.</h6>
+                        <div class="cardbody-color p-lg-5 text-white">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-form-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = " col-form-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-form-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                </div>
+                            </div>                            
+                            <div class="text-center py-3">
+                                <button type="submit" class="btn btn-color px-5 mb-5 w-100">Register</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
