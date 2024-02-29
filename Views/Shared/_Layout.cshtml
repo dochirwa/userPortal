@@ -10,38 +10,37 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="nav sidebar-nav">
-                <li class="sidebar-header">
-                <li class="sidebar-brand">@Html.ActionLink("Dandy Candy", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+    <div class="container-fluid">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap" /></svg>
+                </a>
+            </div>
+
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li>@Html.ActionLink("Dandy Candy", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Dashboard", "DashboardData", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Products", "Products", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Settings", "Settings", "Home", new { area = "" }, new { @class = "nav-link" })</li>
             </ul>
-            @*@@Html.Partial("_LoginPartial")*@
-        </div>
 
-        <!-- Page Content -->
-        <div class="container-fluid" style="margin: 0; padding:0;">
-            @RenderBody()
-        </div>
+            <div class="col-md-3 text-end">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </header>
     </div>
+
+    <div class="container-fluid" style="margin: 0; padding:0;">
+        @RenderBody()
+    </div>  
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script>
-        $(document).ready(function () {
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("menuDisplayed");
-            });
-        });
-    </script>
 </body>
 </html>
 

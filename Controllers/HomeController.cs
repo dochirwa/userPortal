@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using UserPortal.Models;
+using PagedList;
 
 
 namespace UserPortal.Controllers
@@ -14,11 +15,30 @@ namespace UserPortal.Controllers
 
         ProductsEntities db = new ProductsEntities();
 
-        public ActionResult Index() { return View(); }
-        public ActionResult DashboardData()
+        public ActionResult Index()
+        { return View(); }
+            
+        /*public ActionResult DashboardData()
         {
             List<storeProduct> stor = db.storeProducts.ToList();
             return View(stor);
+        }*/
+
+        public ActionResult DashboardData(string option, string search, int? pageNumber)
+        {
+            if (option == "Item_Name")
+            {
+                return View(db.storeProducts.Where
+                    (x => x.Item_Name.StartsWith(search) || search == null).ToList()
+                    .ToPagedList(pageNumber ?? 1, 3));
+            }
+            else
+            {
+                return View(db.storeProducts.Where
+                    (x => x.Description == search || search == null).ToList()
+                    .ToPagedList(pageNumber ?? 1, 3));
+            }
+
         }
 
         //Start of Create Functionality

@@ -1,40 +1,53 @@
-﻿@Styles.Render("~/Content/sidebarBootstrap.css")
-@Styles.Render("~/Content/hamburger.css")
+﻿@using PagedList;
+@using PagedList.Mvc;
 
-@model IEnumerable<UserPortal.Models.storeProduct>
+@model IPagedList<UserPortal.Models.storeProduct>
+
+@Styles.Render("~/Content/sidebarBootstrap.css")
+@Styles.Render("~/Content/hamburger.css")
 
 @{
     ViewBag.Title = "DashboardData";
 }
 
-<div id="page-content-wrapper" class="container-fluid">
-    <div class="hamburger hamburger--arrowalt">
-        <a href="#" class="btn" id="menu-toggle"><span class="hamburger-box"><span class="hamburger-inner"></span></span></a>
-    </div>
-    <div class="container">
-        <h1 class="text-center">Products</h1>
-    </div>
-    <p>
-        <button class="btn btn-primary mx-5" id="create_btn" onclick="create()">Add Product</button>
-    </p>
-    <table class="table text-center">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Item_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>Action</th>
-        </tr>
+<div class="container-fluid">
+    <h1 class="text-center">Products</h1>
+    @using (Html.BeginForm("DashboardData", "Home", FormMethod.Get))
+    {
+        <b> Search: </b>
 
-        @foreach (var item in Model)
+        @Html.RadioButton("option", "Item_Name")<text>Item Name</text>
+        @Html.RadioButton("option", "Description")<text>Description</text>
+
+        @Html.TextBox("search")
+        <input type="submit" name="submit" value="Search" />
+
+        <button class="btn btn-primary float-end" style="margin-left: -25px;" id="create_btn" onclick="create()">Add Product</button>
+    }
+
+<table class="table text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Item_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Quantity)
+        </th>
+        <th>Action</th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+
+    }
+    else
+    {
+        foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -56,7 +69,25 @@
                 </td>
             </tr>
         }
+    }
     </table>
+    <div class="pagination-container">
+        <ul class="pagination justify-content-center">
+            <li class="page-item active">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="/Home/DashboardData?pageNumber=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="/Home/DashboardData?pageNumber=2">2</a></li>
+            <li class="page-item"><a class="page-link" href="/Home/DashboardData?pageNumber=3">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div id="ActionModal" class="modal fade">
@@ -128,3 +159,4 @@
         });
     }
 </script>
+
